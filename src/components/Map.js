@@ -10,7 +10,8 @@ const Map = ({ eventData, center, zoom }) => {
     const [infoBoxColor, setInfoBoxColor] = useState(''); 
 
     const markers = eventData.map(ev => {
-        if(ev.categories[0].id === 8 || ev.categories[0].id === 10 || ev.categories[0].id === 12 || ev.categories[0].id === 15) {
+        if((ev.categories[0].id === 8 || ev.categories[0].id === 10 || ev.categories[0].id === 12 || ev.categories[0].id === 15) &&
+            ev.geometries[0].type != 'Polygon') {
             return <LocationMarker lat={ev.geometries[0].coordinates[1]} lng={ev.geometries[0].coordinates[0]}
             onClick={() => onClickFunctions({ id: ev.id, title: ev.title, event: ev.categories[0] })} eventId={ev.categories[0].id} />
         }
@@ -64,7 +65,7 @@ Map.defaultProps = {
         lat: 42.3265,
         lng: -122.8756
     },
-    zoom: 7
+    zoom: 3
 }
 
 export default Map;
